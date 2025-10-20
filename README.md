@@ -1,6 +1,6 @@
 # Distance Measurement Accuracy Test — ESP32 logger
 
-Short, modern README for quick setup and use.
+![thumbnail](thumbnail.webp)
 
 What it does
 - Logs temperature (DS18B20) and distance (JSN-SR04T) to CSV files on an SD card.
