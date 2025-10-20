@@ -5,6 +5,7 @@
 #include <LittleFS.h>
 #include "sdcard.h"
 #include "rtc.h"
+#include "globals.h"
 
 class WEB_SERVER
 {

@@ -8,6 +8,8 @@ const char *STA_PASS = "password";
 const char *AP_SSID = "ESP32-Device";
 const char *AP_PASS = "12345678";
 
+IPAddress ipAddress;
+
 void WEB_SERVER::setupWiFiAP()
 {
   Serial.println("\n[WiFi] Connecting to STA...");
@@ -26,16 +28,19 @@ void WEB_SERVER::setupWiFiAP()
   {
     Serial.println("\nConnected to WiFi!");
     Serial.print("IP Address: ");
-    Serial.println(WiFi.localIP());
+    IPAddress ip = WiFi.localIP();
+    Serial.println(ip);
+    ipAddress = ip;
   }
   else
   {
     Serial.println("\nFailed to connect, starting AP mode...");
     WiFi.mode(WIFI_AP);
     WiFi.softAP(AP_SSID, AP_PASS);
-    IPAddress apIP = WiFi.softAPIP();
+    IPAddress ip = WiFi.softAPIP();
     Serial.print("AP Mode IP Address: ");
-    Serial.println(apIP);
+    Serial.println(ip);
+    ipAddress = ip;
   }
 }
 

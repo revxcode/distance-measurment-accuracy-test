@@ -112,6 +112,16 @@ void OLED_SSD1306::temperature()
   display.print("C");
 }
 
+// display IP
+void OLED_SSD1306::address()
+{
+  // Tampilkan label dan nilai IP Addresses
+  display.setTextSize(1);
+  display.setCursor(0, 52);
+  display.print(colon("IP"));
+  display.print(ipAddress);
+}
+
 void OLED_SSD1306::show(DateTime now)
 {
   display.clearDisplay();
@@ -123,6 +133,7 @@ void OLED_SSD1306::show(DateTime now)
   display.setTextColor(SSD1306_WHITE);
   distance();
   temperature();
+  address();
 
   display.display();
 }

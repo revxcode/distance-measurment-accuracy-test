@@ -6,6 +6,7 @@
 #include "globals.h"
 #include "jsnsr04t.h"
 #include "ds18b20.h"
+#include "globals.h"
 
 static String colon(String text);
 
@@ -20,6 +21,7 @@ private:
   void dateTime(DateTime now);
   void distance();
   void temperature();
+  void address();
 };
 
 extern OLED_SSD1306 OLED;
