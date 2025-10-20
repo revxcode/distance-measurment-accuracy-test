@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev:css": "tailwindcss -i ./web/input.css -o ./data/style.css --watch --minify",
+    "dev:serve": "live-server ./data --port=3000",
+    "dev": "concurrently \"npm run dev:css\" \"npm run dev:serve\""
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "concurrently": "^9.2.1",
+    "tailwindcss": "^4.1.13"
+  }
+}

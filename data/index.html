@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESP32 File Manager</title>
+  <link href="/style.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-950 text-gray-100 flex flex-col min-h-screen font-sans">
+  <!-- HEADER -->
+  <header class="bg-gray-900 text-white py-4 px-4 shadow-md flex items-center justify-between">
+    <h1 class="text-lg font-semibold tracking-wide">📂 ESP32 File Manager</h1>
+    <button id="ipSettingsBtn" class="text-gray-400 hover:text-white transition text-sm">
+      ⚙️ IP
+    </button>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow flex flex-col p-3">
+    <!-- PATH BAR -->
+    <div class="flex items-center gap-2 mb-3">
+      <input id="pathInput" type="text" placeholder="/"
+        class="flex-grow bg-gray-800 text-gray-200 rounded-lg px-3 py-2 text-sm border border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none" />
+      <button id="listBtn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm">
+        Browse
+      </button>
+    </div>
+
+    <!-- FILE LIST -->
+    <div id="fileList" class="bg-gray-900 border border-gray-800 rounded-lg flex-1 overflow-y-auto p-2 space-y-1">
+      <p class="text-gray-400 text-sm text-center py-4">
+        Tap "Browse" to view directory contents
+      </p>
+    </div>
+
+    <!-- FILE VIEWER -->
+    <div id="fileViewer" class="hidden flex-col bg-gray-900 border border-gray-800 rounded-lg mt-3">
+      <div class="flex items-center justify-between bg-gray-800 px-3 py-2 rounded-t-lg">
+        <span id="fileName" class="font-semibold text-sm text-gray-200"></span>
+        <button id="closeViewer" class="text-gray-400 hover:text-white transition text-sm">
+          ✖
+        </button>
+      </div>
+      <pre id="fileContent" class="text-green-400 text-xs p-3 overflow-y-auto h-80 whitespace-pre-wrap"></pre>
+    </div>
+  </main>
+
+  <!-- IP CONFIG MODAL -->
+  <div id="ipModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div class="bg-gray-900 rounded-xl p-5 w-11/12 max-w-sm shadow-lg">
+      <h2 class="text-lg font-semibold mb-3 text-center">🔌 Configure ESP32 IP</h2>
+      <input id="ipInput" type="text" placeholder="192.168.4.1"
+        class="w-full bg-gray-800 text-gray-100 rounded-lg px-3 py-2 text-sm border border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none mb-3" />
+      <div class="flex justify-between">
+        <button id="saveIpBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
+          Save
+        </button>
+        <button id="closeIpBtn" class="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded-lg text-sm">
+          Cancel
+        </button>
+      </div>
+      <p id="ipDisplay" class="text-center text-gray-400 text-xs mt-3">
+        Current endpoint: <span class="text-blue-400">—</span>
+      </p>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+
+</html>
