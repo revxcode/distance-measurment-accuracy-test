@@ -22,6 +22,7 @@ void OLED_SSD1306::begin()
   display.display();
 
   Serial.println("OLED initialized.");
+  // Tampilkan layar boot singkat
   boot("DMAT");
 }
 
@@ -59,6 +60,7 @@ void OLED_SSD1306::boot(const char *text)
 // display date & time
 void OLED_SSD1306::dateTime(DateTime now)
 {
+  // Format dan tampilkan tanggal serta waktu di kiri atas
   display.setTextSize(1);
   display.setCursor(0, 2);
   if (now.day() < 10)
@@ -89,6 +91,7 @@ void OLED_SSD1306::dateTime(DateTime now)
 // display distance
 void OLED_SSD1306::distance()
 {
+  // Tampilkan label dan nilai jarak (cm)
   display.setTextSize(1);
   display.setCursor(0, 20);
   display.print(colon("DST"));
@@ -99,6 +102,7 @@ void OLED_SSD1306::distance()
 // display temperature
 void OLED_SSD1306::temperature()
 {
+  // Tampilkan label dan nilai suhu (°C)
   display.setTextSize(1);
   display.setCursor(0, 36);
   display.print(colon("TEMP"));

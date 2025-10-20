@@ -1,11 +1,13 @@
 #include "sdcard.h"
 
+// Modul SDCARD2: lokasi penyimpanan dan utilitas untuk menulis/menbaca log CSV
 static const char *filePath = "/data/log/dmat/";
 
 void SDCARD2::begin(int csPin)
 {
   csPinInit = csPin;
 
+  // Inisialisasi SD card. Jika gagal, tampilkan pesan dan hentikan.
   if (!SD.begin(csPinInit))
   {
     Serial.println("SD Card mount failed!");
@@ -14,6 +16,7 @@ void SDCARD2::begin(int csPin)
     }
   }
 
+  // Pastikan struktur direktori untuk log ada, buat jika perlu
   if (!SD.exists(filePath))
   {
     Serial.println("/data/log/dmat not found.");
@@ -32,13 +35,14 @@ const char *SDCARD2::getFileName(const char *prefix)
 {
   DateTime now = RTC31.now();
 
+  // Buat nama file harian: /<prefix>YYYYMMDD.csv
   snprintf(fileName, sizeof(fileName), "/%s%04d%02d%02d.csv", prefix, now.year(), now.month(), now.day());
-
   return fileName;
 }
 
 void SDCARD2::writeLog(const char text[])
 {
+  // Pastikan SD masih ter-mount; coba remount satu kali jika perlu
   if (!SD.begin(csPinInit))
   {
     Serial.println("SD not initialized, remounting...");
@@ -64,17 +68,16 @@ void SDCARD2::writeLog(const char text[])
 
   if (!SD.exists(fullPath))
   {
+    // Jika file belum ada: buat file, tulis header, lalu baris pertama
     Serial.printf("File %s doesn't exist, creating new file...\n", fullPath);
 
     fileLog = SD.open(fullPath, "w");
     if (fileLog)
     {
       Serial.printf("%s created.\n", getFileName());
-
       Serial.println(text);
       fileLog.println("timestamp, temperature, distance");
       fileLog.println(text);
-
       fileLog.close();
     }
     else
@@ -84,12 +87,12 @@ void SDCARD2::writeLog(const char text[])
   }
   else
   {
+    // Jika file sudah ada: buka dalam mode append dan tambahkan baris
     fileLog = SD.open(fullPath, "a");
     if (fileLog)
     {
       Serial.println(text);
       fileLog.println(text);
-
       fileLog.close();
     }
   }
@@ -138,6 +141,7 @@ String SDCARD2::listDir(const char *dirname, uint8_t levels)
 
 String SDCARD2::readFile(const char *path)
 {
+  // Baca seluruh konten file dan kembalikan sebagai String
   String content = "";
   File file = SD.open(path);
   if (!file)

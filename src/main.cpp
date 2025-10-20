@@ -13,6 +13,8 @@ float tempLog;
 
 void setup()
 {
+  // Initialize serial for debug output and bring up services
+  // Order: LittleFS -> WiFi -> WebServer -> OLED -> RTC -> Sensors -> SD
   Serial.begin(115200);
   WS.setupLittleFS();
   WS.setupWiFiAP();
@@ -27,18 +29,24 @@ void setup()
 
 void loop()
 {
+
+  // Handle incoming HTTP clients (non-blocking)
   WS.serverInit.handleClient();
 
+  // Periodic measurement and logging (~1 Hz)
   unsigned long nowMillis = millis();
 
   if (nowMillis - lastUpdate >= 1000)
   {
     DateTime now = RTC31.now();
+    // read sensors
     dstLog = JSN.getDistance();
     tempLog = TEMP.getTemperature();
 
+    // update display
     OLED.show(now);
 
+    // format CSV line and append to SD
     char data[32];
     snprintf(data, sizeof(data), "%04d-%02d-%02dT%02d:%02d:%02d,%.2f,%.2f",
              now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second(), tempLog, dstLog);
@@ -47,5 +55,6 @@ void loop()
     lastUpdate = nowMillis;
   }
 
+  // small sleep to reduce CPU usage
   delay(500);
 }
