@@ -2,8 +2,8 @@
 
 WEB_SERVER::WEB_SERVER() : serverInit(80) {}
 
-const char *STA_SSID = "Yansya Laundry II";
-const char *STA_PASS = "qwerty123";
+const char *STA_SSID = "SSID";
+const char *STA_PASS = "password";
 
 const char *AP_SSID = "ESP32-Device";
 const char *AP_PASS = "12345678";
@@ -34,7 +34,7 @@ void WEB_SERVER::setupWiFiAP()
     WiFi.mode(WIFI_AP);
     WiFi.softAP(AP_SSID, AP_PASS);
     IPAddress apIP = WiFi.softAPIP();
-    Serial.print("📡AP Mode IP Address: ");
+    Serial.print("AP Mode IP Address: ");
     Serial.println(apIP);
   }
 }

@@ -20,7 +20,7 @@ Default pins (check your board):
 
 Web & networking
 - Tries STA first (credentials in `src/web_server.cpp`), falls back to AP mode.
-- Default STA: `Yansya Laundry II` / `qwerty123` (change before deployment)
+- Default STA: `SSID` / `password`
 - Default AP: `ESP32-Device` / `12345678`
 
 Useful endpoints
