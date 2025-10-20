@@ -68,9 +68,6 @@ pio device monitor -b 115200
 
 ## 📦 License
 
-- No license file included. Add a LICENSE if you plan to redistribute.
+- [MIT License](LICENSE).
 
----
-
-Want it shorter, translated, or with a sample script to fetch logs? Tell me which and I’ll update.
 
