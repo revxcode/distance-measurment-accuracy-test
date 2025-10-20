@@ -1,7 +1,7 @@
 # <mark>Distance Measurement Accuracy Test</mark> — ESP32 logger
 
 <p align="center">
-	<img src="thumbnail.webp" alt="thumbnail" width="420" />
+	<img src="thumbnail.webp" alt="thumbnail" />
 </p>
 
 ## ✨ What it does
