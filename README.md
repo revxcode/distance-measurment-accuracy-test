@@ -1,4 +1,4 @@
-# <mark>Distance Measurement Accuracy Test</mark> — ESP32 logger
+# <mark>Distance Measurement Accuracy Test</mark> — ESP32
 
 <p align="center">
 	<img src="thumbnail.webp" alt="thumbnail" />
