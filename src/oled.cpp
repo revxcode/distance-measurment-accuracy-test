@@ -22,8 +22,42 @@ void OLED_SSD1306::begin()
   display.display();
 
   Serial.println("OLED initialized.");
-  // Tampilkan layar boot singkat
   boot("DMAT");
+}
+
+void OLED_SSD1306::error(const char *text)
+{
+  const int textSize = 1;
+  const int typingDelay = 75; // ms per character
+
+  display.clearDisplay();
+  display.setTextSize(textSize);
+  display.setTextColor(SSD1306_WHITE);
+
+  int len = strlen(text);
+  int charWidth = 6 * textSize; // approx width of one char
+  int textWidth = len * charWidth;
+  int x = (SCREEN_WIDTH - textWidth) / 2;
+  if (x < 0)
+    x = 0;
+  int textHeight = 8 * textSize; // approx height of text
+  int y = (SCREEN_HEIGHT - textHeight) / 2;
+  if (y < 0)
+    y = 0;
+
+  String buffer = "";
+  for (int i = 0; i < len; ++i)
+  {
+    buffer += text[i];
+    // clear only the text area so the typing effect erases previous shorter state
+    display.fillRect(x, y, textWidth, textHeight, SSD1306_BLACK);
+    display.setCursor(x, y);
+    display.print(buffer);
+    display.display();
+    delay(typingDelay);
+  }
+
+  delay(1500);
 }
 
 void OLED_SSD1306::boot(const char *text)
@@ -49,12 +83,12 @@ void OLED_SSD1306::boot(const char *text)
     display.display();
     if (text == "DMAT")
     {
-      delay(500);
+      delay(200);
     }
   }
 
-  display.clearDisplay();
   display.display();
+  delay(500);
 }
 
 // display date & time
@@ -88,12 +122,22 @@ void OLED_SSD1306::dateTime(DateTime now)
   display.print(now.second());
 }
 
+// display ip address
+void OLED_SSD1306::address()
+{
+  // Tampilkan label dan nilai IP Addresses
+  display.setTextSize(1);
+  display.setCursor(0, 20);
+  display.print(colon("IP"));
+  display.print(ipAddress);
+}
+
 // display distance
 void OLED_SSD1306::distance()
 {
   // Tampilkan label dan nilai jarak (cm)
   display.setTextSize(1);
-  display.setCursor(0, 20);
+  display.setCursor(0, 36);
   display.print(colon("DST"));
   display.print(dstLog);
   display.print(" cm");
@@ -104,22 +148,12 @@ void OLED_SSD1306::temperature()
 {
   // Tampilkan label dan nilai suhu (°C)
   display.setTextSize(1);
-  display.setCursor(0, 36);
+  display.setCursor(0, 52);
   display.print(colon("TEMP"));
   display.print(tempLog);
   display.print(" ");
   display.print((char)247);
   display.print("C");
-}
-
-// display IP
-void OLED_SSD1306::address()
-{
-  // Tampilkan label dan nilai IP Addresses
-  display.setTextSize(1);
-  display.setCursor(0, 52);
-  display.print(colon("IP"));
-  display.print(ipAddress);
 }
 
 void OLED_SSD1306::show(DateTime now)

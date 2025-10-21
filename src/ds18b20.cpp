@@ -6,6 +6,8 @@ TEMP_DS18B20::TEMP_DS18B20() : inputPin(0), oneWire(0), sensors(&oneWire) {}
 // Inisialisasi OneWire pada pin yang diberikan dan cek keberadaan sensor
 void TEMP_DS18B20::begin(int inputSignal)
 {
+  OLED.boot("DS18B20");
+
   inputPin = inputSignal;
   oneWire = OneWire(inputPin);
   sensors.begin();
@@ -13,14 +15,14 @@ void TEMP_DS18B20::begin(int inputSignal)
   // Jika tidak ada perangkat, hentikan untuk debugging
   if (!sensors.getDeviceCount())
   {
-    Serial.println("Error: No DS18B20 sensor found!");
+    Serial.println("DS18B20 not found!");
+    OLED.error("DS18B20 not found!");
     while (true)
     {
     }
   }
 
   Serial.println("DS18B20 initialized.");
-  OLED.boot("DS18B20");
 }
 
 // Minta pembacaan suhu dan kembalikan nilai (°C)

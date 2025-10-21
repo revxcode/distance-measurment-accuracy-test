@@ -5,12 +5,15 @@ static const char *filePath = "/data/log/dmat/";
 
 void SDCARD2::begin(int csPin)
 {
+  OLED.boot("SDCARD");
+
   csPinInit = csPin;
 
   // Inisialisasi SD card. Jika gagal, tampilkan pesan dan hentikan.
   if (!SD.begin(csPinInit))
   {
-    Serial.println("SD Card mount failed!");
+    Serial.println("SD Card not found!");
+    OLED.error("SD Card not found!");
     while (true)
     {
     }
@@ -28,7 +31,6 @@ void SDCARD2::begin(int csPin)
 
   Serial.println("SD Card initialized.");
   Serial.printf("Card size: %llu MB\n", SD.cardSize() / (1024 * 1024));
-  OLED.boot("SDCARD");
 }
 
 const char *SDCARD2::getFileName(const char *prefix)

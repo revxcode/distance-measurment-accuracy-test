@@ -13,14 +13,15 @@ float tempLog;
 
 void setup()
 {
-  // Initialize serial for debug output and bring up services
-  // Order: LittleFS -> WiFi -> WebServer -> OLED -> RTC -> Sensors -> SD
+  // Initialize serial
   Serial.begin(115200);
+
+  OLED.begin();
+
   WS.setupLittleFS();
   WS.setupWiFiAP();
   WS.setupWebServer();
 
-  OLED.begin();
   RTC31.begin();
   JSN.begin(16, 17);
   TEMP.begin(27);

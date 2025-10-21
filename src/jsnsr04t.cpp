@@ -3,14 +3,14 @@
 // Inisialisasi pin untuk sensor ultrasonic JSN-SR04T
 void JSNSR04T::begin(int trig, int echo)
 {
+  // Tampilkan pesan boot pada OLED
+  OLED.boot("JSN-SR04T");
+
   trigPin = trig;
   echoPin = echo;
 
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-
-  // Tampilkan pesan boot pada OLED
-  OLED.boot("JSN-SR04T");
 }
 
 // Mengukur jarak dalam cm. Mengembalikan -1.0 jika tidak ada echo.

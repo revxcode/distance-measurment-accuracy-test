@@ -15,13 +15,14 @@ class OLED_SSD1306
 public:
   void begin();
   void boot(const char *text = "DMAT");
+  void error(const char *text = "error");
   void show(DateTime now);
 
 private:
   void dateTime(DateTime now);
+  void address();
   void distance();
   void temperature();
-  void address();
 };
 
 extern OLED_SSD1306 OLED;
